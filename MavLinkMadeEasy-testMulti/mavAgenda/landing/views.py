@@ -51,7 +51,6 @@ def createuser(request):
         form = UserForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            #user.classtaken = ""
             user.save()
             return render(request, 'landing/selectcourses.html', {'form': form})
     else:

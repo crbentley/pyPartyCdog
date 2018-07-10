@@ -19,10 +19,18 @@
 <h1> Enter Required Information </h1>
 <form method="POST" class="user-form">{% csrf_token %}
 	<!--{{ form.as_p}}-->
+	<h2>Email:</h2>
 	{{form.email}}
+	<h3>Degree Track:</h3>
 	{{form.degreetrack}}
+	<h4>Major:</h4>
 	{{form.major}}
-	{{form.classtaken}}
+	<h5>General Education Classes Taken:</h5>
+	{{form.general_classtaken}}
+	<h5>Core Classes Taken:</h5>
+	{{form.core_classtaken}}
+	<h5>Core Extension Classes Taken:</h5>
+	{{form.core_extension_classtaken}}
 	<button type="submit" class="save btn btn-default">Register</button>    
 </form>
 {% endblock%}

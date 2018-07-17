@@ -1,42 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--{% load staticfiles %}-->
+{% load static%}
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>MavLINK Made Easy - Select Courses Completed</title>
+    <title>MavLINK Made Easy - Select Courses</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </head>
-<body class="MAVfont">
+<body>
 
-{% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'landing/style.css' %}" />
 
 <img src="{% static "landing/MMElogo.jpg" %}" alt="Logo" width="190" height="170"/>
 
-<h3 align="center">select courses completed</h3>
-<p>place a check mark next to the classes you've completed</p>
-
-<form class="courseselect" id = "courseselect" action="{% url 'landing:schedule' %}" method="post">
-    {% csrf_token %}
-
-    <div class="box">
-        <p class="boxheader">gen eds</p>
-        <p><input type="checkbox">Testing1</p>
-        <p><input type="checkbox">Testing2</p>
-    </div>
-    <div class="box">
-        <p class="boxheader">core classes</p>
-        <p><input type="checkbox">Testing3</p>
-        <p><input type="checkbox">Testing4</p>
-    </div>
-    <div class="box">
-        <p class="boxheader">core extensions</p>
-        <p><input type="checkbox">Testing5</p>
-        <p><input type="checkbox">TestingInfinity</p>
-    </div>
-
-    <input type="submit" value="submit" class="MAVnextbutton" style="padding: 8px 8px"/>
-
+{% block content %}
+<h1> Select the class's you've taken </h1>
+<form method="POST" class="usercompleted-form">{% csrf_token %}
+	<h2>General Education Classes:</h2>
+	{{form.general_classtaken}}
+	<h3>Core Classes:</h3>
+	{{form.core_classtaken}}
+	<h4>Core Extension Classes:</h4>
+	{{form.core_extension_classtaken}}
+	<h5>Foreign Key</h5>
+	{{form.user}}
+	<button type="submit" class="save btn btn-default">Submit</button>    
 </form>
+{% endblock%}
+</br>
+</br>
+
 
 </body>
 </html>

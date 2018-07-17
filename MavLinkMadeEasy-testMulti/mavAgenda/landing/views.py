@@ -6,16 +6,17 @@ from django.urls import reverse
 
 from .models import User
 from .models import UserCompleted
-from .models import PossibleDegrees
-from .models import RequirementCategories
-from .models import Course
-from .models import CoursePrereqs
-from .models import CoreCourse
-from .models import EnglishCourse
-from .models import MathCourse
-from .models import SpeechCourse
+#from .models import PossibleDegrees
+#from .models import RequirementCategories
+#from .models import Course
+#from .models import CoursePrereqs
+#from .models import CoreCourse
+#from .models import EnglishCourse
+#from .models import MathCourse
+#from .models import SpeechCourse
 
 from .forms import UserForm
+from .forms import UserCompletedForm
 
 #def selectdegree(request):
     #return render(request, 'landing/selectdegree.html')
@@ -41,7 +42,15 @@ def login(request):
 
 
 def selectcourses(request):
-    return render(request, 'landing/selectcourses.html')
+    if request.method == "POST":
+        form = UserCompletedForm(request.POST)
+        if form.is_valid():
+            courses = form.save(commit=False)
+            courses.save()
+            return HttpResponseRedirect(reverse('landing:schedule'))
+    else:
+        form = UserCompletedForm()
+    return render(request, 'landing/selectcourses.html', {'form': form})
 
 def schedule(request):
     return render(request, 'landing/schedule.html')
@@ -52,7 +61,8 @@ def createuser(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            return render(request, 'landing/selectcourses.html', {'form': form})
+            #return render(request, 'landing/selectcourses.html', {'form': form})
+            return HttpResponseRedirect(reverse('landing:selectcourses'))
     else:
         form = UserForm()
     return render(request, 'landing/createuser.html', {'form': form})
